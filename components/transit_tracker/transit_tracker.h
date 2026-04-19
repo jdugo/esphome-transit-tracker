@@ -57,6 +57,16 @@ class TransitTracker : public Component {
 
     void set_realtime_color(const Color &color);
 
+  // Called every display refresh cycle (32ms per firmware config).
+  // Replaces or wraps the existing draw_schedule() body.
+  void draw_schedule();
+
+  // Called whenever the websocket delivers a fresh trip list.
+  // Reset the alternating page timer so riders always see trips 2/3 first.
+  void on_schedule_updated() {
+    this->alt_page_b_ = false;
+    this->alt_page_last_switch_ = millis();
+
   protected:
     static constexpr int scroll_speed = 10; // pixels/second
     static constexpr int idle_time_left = 5000;
@@ -102,6 +112,26 @@ class TransitTracker : public Component {
 
     Color realtime_color_ = Color(0x20FF00);
     Color realtime_color_dark_ = Color(0x00A700);
+
+private:
+  // --- Alternating page state ---
+  // Row 1 is always fixed (trip index 0).
+  // Rows 2+3 alternate between page A (trips 1,2) and page B (trips 3,4)
+  // on a 15-second timer. Timer resets on every schedule refresh.
+  bool alt_page_b_{false};              // false = show trips[1]/[2], true = show trips[3]/[4]
+  uint32_t alt_page_last_switch_{0};    // millis() timestamp of last page flip
+  static constexpr uint32_t ALT_PAGE_INTERVAL_MS = 15000;  // 15 seconds
+
+  // --- Display constants ---
+  // Ordinal labels for rows. Row 1 is always "1."; rows 2/3 depend on page.
+  //   page A: seq 2, 3
+  //   page B: seq 4, 5
+  static constexpr const char *ORDINALS[] = {"1.", "2.", "3.", "4.", "5."};
+
+  // Wifi icon colors
+  static constexpr Color WIFI_COLOR_REALTIME  = Color(0x33, 0x99, 0xFF);  // blue  — live MTA feed
+  static constexpr Color WIFI_COLOR_SCHEDULED = Color(0x33, 0x44, 0x55);  // dim   — scheduled only
+
 };
 
 
