@@ -117,9 +117,9 @@ private:
   // Row 1 is always fixed (trip index 0).
   // Rows 2+3 alternate between page A (trips 1,2) and page B (trips 3,4)
   // on a 15-second timer. Timer resets on every schedule refresh.
-  bool alt_page_b_{false};              // false = show trips[1]/[2], true = show trips[3]/[4]
-  uint32_t alt_page_last_switch_{0};    // millis() timestamp of last page flip
-  static constexpr uint32_t ALT_PAGE_INTERVAL_MS = 15000;  // 15 seconds
+  bool alt_page_b_{false};
+  uint32_t alt_page_last_switch_{0};
+  static constexpr uint32_t ALT_PAGE_INTERVAL_MS = 15000;
 
   // --- Display constants ---
   // Ordinal labels for rows. Row 1 is always "1."; rows 2/3 depend on page.
