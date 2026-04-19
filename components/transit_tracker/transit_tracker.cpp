@@ -429,7 +429,7 @@ void TransitTracker::draw_trip(
 void HOT TransitTracker::draw_schedule() { 
 #include "esphome/core/log.h"
 #include "esphome/core/hal.h"       // millis()
-#include "esphome/components/display/display_buffer.h"
+
 
 namespace esphome {
 namespace transit_tracker {
