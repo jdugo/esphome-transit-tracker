@@ -426,13 +426,8 @@ void TransitTracker::draw_trip(
     this->display_->end_clipping();
 }
 
-void HOT TransitTracker::draw_schedule() { 
-#include "esphome/core/log.h"
-#include "esphome/core/hal.h"       // millis()
-
-
-namespace esphome {
-namespace transit_tracker {
+void HOT TransitTracker::draw_schedule() {
+  if (!esphome::network::is_connected()) {
 
 // ── Helpers ────────────────────────────────────────────────
 
