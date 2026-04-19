@@ -497,6 +497,11 @@ void HOT TransitTracker::draw_schedule() {
   }
 
   this->schedule_state_.mutex.unlock();
+
+   // Reset alternating page to A whenever fresh data arrives,
+  // so riders always see the nearest trains (2./3.) first.
+  this->on_schedule_updated();
+  
 }
 
 }  // namespace transit_tracker
