@@ -426,7 +426,7 @@ void TransitTracker::draw_trip(
     this->display_->end_clipping();
 }
 
-void HOT TransitTracker::draw_schedule() { #include "transit_tracker.h"
+void HOT TransitTracker::draw_schedule() { 
 #include "esphome/core/log.h"
 #include "esphome/core/hal.h"       // millis()
 #include "esphome/components/display/display_buffer.h"
