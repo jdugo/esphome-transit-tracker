@@ -59,7 +59,6 @@ class TransitTracker : public Component {
 
   // Called every display refresh cycle (32ms per firmware config).
   // Replaces or wraps the existing draw_schedule() body.
-  void draw_schedule();
 
   // Called whenever the websocket delivers a fresh trip list.
   // Reset the alternating page timer so riders always see trips 2/3 first.
